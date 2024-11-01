@@ -5,13 +5,17 @@
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "scripts": {
-        "publish:template": "npm version patch && npm run build && npm publish",
+        "publish:patch": "npm version patch && npm run build && npm publish",
+        "publish:minor": "npm version minor && npm run build && npm publish",
+        "publish:major": "npm version major && npm run build && npm publish",
         "test": "rm -f database.sqlite && npx jest --runInBand",
         "test:watch": "rm -f database.sqlite && npx jest --watch",
         "test:cov": "npx jest --collectCoverageFrom= /src/helpers --coverage --runInBand ",
         "prepare": "husky install",
         "lint": "pretty-quick --staged && lint-staged",
-        "build": "rm -rf dist && tsc"
+        "build": "rm -rf dist && tsc",
+        "pre-commit": "npm run pretty && npm run lint && git add -A",
+        "pretty": "npx prettier --write ./src"
     },
     "files": [
         "/dist"
